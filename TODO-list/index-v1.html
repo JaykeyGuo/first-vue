@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.17.1/axios.min.js"></script>
+    <title>TODO List-V1</title>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <div class="row justify-content-md-center">
+            <div class="com-md-2 mt-5">
+                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
+                    <button type="button" class="btn btn-sm btn-info" v-on:click="onSelect(item.tag)" v-for="(item, tag) in buttons">{{ item.text }}</button>
+                </div>
+            </div>
+
+            <div class="col-md-8 mt-5" v-if="currentTag === 'working'">
+                <div class="list-group">
+                    <task-item v-bind:item="item" v-bind:tag="'working'" v-for="item in tasks"></task-item>
+                </div>
+            </div>
+
+            <div class="col-md-8 mt-5" v-else>
+                <div class="list-group">
+                    <task-item v-bind:item="item" v-bind:tag="'completed'" v-for="item in tasks"></task-item>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    Vue.component('task-item', {
+        props: ['item', 'tag'],
+        template: `
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" v-if="item.tag === tag">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"> {{ item.title }} </h5>
+                <small>{{ item.createdAt }}</small>
+            </div>
+            <p class="mb-1">{{ item.content }}</p>
+            <div class='float-right text-success' v-if="item.completed">已完成!</div>
+            <div v-else>
+                <button type="button" class="float-right btn btn-sm btn-primary" v-on:click="onCompleted">完成</button>
+            </div>
+        </a>
+        `,
+        methods: {
+            onCompleted () {
+                console.log('---')
+            }
+        }
+    })
+    var tasks = function () {
+        let tasks = [];
+        for (let i = 0; i < 10; i++) {
+            tasks.push({
+                title: "task" + i,
+                content: "content" + i * 100,
+                tag: 'working',
+                completed: false,
+                createdAt: (new Date()).toString()
+            })
+        };
+        for (let i = 10; i < 20; i++) {
+            tasks.push({
+                title: "task" + i,
+                content: "content" + i * 100,
+                tag: 'completed',
+                completed: true,
+                createdAt: (new Date()).toString()
+            })
+        }
+
+        return tasks;
+    }(); //立即执行
+    var app = new Vue({
+        el: "#app",
+        data: {
+            tasks: tasks,
+            buttons: [{
+                    tag: 'completed',
+                    text: '完成'
+                },
+                {
+                    tag: 'working',
+                    text: '未完成'
+                }
+            ],
+            currentTag: ''
+        },
+        methods: {
+            onCompleted(completed) {
+                console.log(completed);
+                this.tasks.completed = true;
+                console.log(this.tasks.completed);
+            },
+            onSelect(tag) {
+                this.currentTag = tag;
+            }
+        }
+    })
+</script>
+
+</html>
