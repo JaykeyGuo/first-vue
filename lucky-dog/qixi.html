@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="jumbotron">
+                <h1 class="display-4">对你的❤️有几分？</h1>
+                <p class="lead">猜不透我的心？</p>
+                <button class="btn btn-primary btn-lg" v-on:click="lucky">猜猜看</button>
+                <button class="btn btn-danger btn-lg" v-on:click="stop">猜中了？</button>
+            </div>
+
+            <div class="card" style="width: 100%;">
+                <div class="card-header">
+                    <h5 class="card-title">❤️❤️❤️你问我爱你有几分？❤️❤️❤️</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <ol v-for="user in luckyUsers">{{ user.name }}</ol>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var renderUsers = function () {
+        let users = [];
+        for (let i = 0; i < 100; i++) {
+            users.push({
+                id: i + 1,
+                name: '我对你的❤️有' + (i + 1) + "%"
+            });
+        }
+
+        return users;
+    }();
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            users: renderUsers,
+            luckyUsers: [],
+            isRunning: false,
+            luckyNumber: 1,
+        },
+        methods: {
+            lucky() {
+                console.log("开始抽奖");
+                this.isRunning = true;
+                this.run();
+            },
+            stop() {
+                console.log('停止抽奖');
+                this.luckyUsers.push(this.users[this.luckyNumber]);
+                this.isRunning = false;
+            },
+            run() {
+                if (!this.isRunning) {
+                    return;
+                }
+
+                this.luckyNumber += 1;
+
+                if (this.luckyNumber >= this.users.length) {
+                    this.luckyNumber = 1;
+                }
+
+                console.log("running...");
+                setTimeout(this.run, 1);
+            }
+        }
+    })
+</script>
+
+</html>
