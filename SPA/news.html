@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>News Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=0" />
+    <link rel="stylesheet" type="text/css" media="screen" href="news.css" />
+</head>
+<body>
+    <div class="header">
+        <ul class="header-content">
+            <li class="header-item">推荐</li>
+            <li class="header-item">新闻</li>
+            <li class="header-item">娱乐</li>
+            <li class="header-item">体育</li>
+            <li class="header-item">图片</li>
+            <li class="header-item">财经</li>
+        </ul>
+    </div>
+    <div class="banner-content">
+        <img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fufc4ek9sij30kl0bzta2.jpg" alt="" class="banner">
+        <h3 class="banner-title">2018厦门市高校最美女神</h3>
+    </div>
+    <div class="news-content">
+        <ul>
+            <li class="news-item">
+                <div class="item-inner">
+                        <img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fufc7ag0ayj30gt09zgn9.jpg" alt="" class="news-img">
+                        <p class="news-title">
+                            厦门市高校最美女神
+                        </p>
+                        <span class="news-time">1小时</span>
+                        <span class="news-click">阅读量: 999</span>
+                </div>
+            </li>
+        </ul>
+    </div>  
+</body>
+</html>
+
+<script>
+
+    let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+
+    let htmlDom = document.getElementsByTagName('html')[0];
+
+    htmlDom.style.fontSize = htmlWidth / 10 + 'px';
+
+    window.addEventListener('resize', () => {
+        let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+        htmlDom.style.fontSize = htmlWidth / 10 + 'px';
+    });
+</script>
