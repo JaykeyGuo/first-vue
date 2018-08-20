@@ -83,22 +83,19 @@ a {
 
     }
     .news-time{
-        position: absolute;
+        position: static;
         left: px2rem(125px);
         bottom: px2rem(17px);
         color: #888;
         font-size: px2rem(12px);
     }
     .news-click{
-        position: absolute;
+        position: static;
         color: black;
         font-size: px2rem(12px);
         right: px2rem(20px);
         bottom: px2rem(17px);
         &:before {
-            content: ' ';
-            display: block;
-            position: absolute;
             width: px2rem(21px);
             height: px2rem(20px);
             background-size: contain;

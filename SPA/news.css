@@ -65,44 +65,22 @@ a {
     margin-top: 0.4266666667rem;
     line-height: 0.5333333333rem; }
   .news-content .news-time {
-    position: absolute;
+    position: static;
     left: 3.3333333333rem;
     bottom: 0.4533333333rem;
     color: #888;
     font-size: 0.32rem; }
   .news-content .news-click {
-    position: absolute;
+    position: static;
     color: black;
     font-size: 0.32rem;
     right: 0.5333333333rem;
     bottom: 0.4533333333rem; }
     .news-content .news-click:before {
-      content: ' ';
-      display: block;
-      position: absolute;
       width: 0.56rem;
       height: 0.5333333333rem;
       background-size: contain;
       top: -0.1066666667rem;
       left: -0.6133333333rem; }
-
-/**
-.news-content {
-    .time {
-        position: absolute;
-        left: px2rem(125px);
-        bottom: px2rem(17px);
-        color: #888;
-        font-size: px2rem(12px);
-    }
-    .num {
-        position: absolute;
-        color: #888;
-        font-size: px2rem(12px);
-        right: px2rem(20px);
-        bottom: px2rem(17px);
-    }
-}
-**/
 
 /*# sourceMappingURL=news.css.map */
