@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-1">
       <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-        <button type="button" class="btn btn-secondary" v-on:click="onSelected(item.tag)" v-for="item in items">{{ item.text }}</button>
+        <button type="button" class="btn btn-secondary" v-on:click="onSelected(item.tag)" v-for="item in items" :key="item.id">{{ item.text }}</button>
       </div>
     </div>
 </template>
