@@ -7,8 +7,7 @@
 
 <script>
 import { Cell } from 'mint-ui'
-import axios from 'axios'
-import * as R from 'ramda'
+import { getTask } from '../api/tasks.js'
 
 export default {
   name: 'Tasks',
@@ -24,14 +23,7 @@ export default {
       Cell
   },
   beforeCreate() {
-    axios
-      .get('https://api.myjson.com/bins/oufit')
-      .then(response => response.data)
-      .then(data => {
-          var incompleted = n => !n.completed;
-          this.items = R.filter(incompleted, data)
-      })
-      .catch(console.log);
+    getTask(false).then(data => this.items = data)
   }
 }
 </script>
