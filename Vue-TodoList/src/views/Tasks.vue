@@ -1,6 +1,6 @@
 <template>
   <div class="tasks">
-    <h1>This is the tasks page</h1>
+    <Tasks msg="Tasks"></Tasks>
   </div>
 </template>
 
@@ -15,3 +15,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.tasks {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+}
+</style>

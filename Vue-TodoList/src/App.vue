@@ -1,32 +1,55 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/tasks">Tasks</router-link> |
-      <router-link to="/history">History</router-link>
+
+            <router-view/>
+
+    <div id="tabbar">
+      <mt-tabbar v-model="selected">
+        <mt-tab-item id="Home">
+          <img src="http://placeholder.qiniudn.com/100x100" slot="icon">        
+          <router-link to="/">Home</router-link>
+        </mt-tab-item>
+        <mt-tab-item id="Tasks">
+          <img src="http://placeholder.qiniudn.com/100x100" slot="icon">          
+          <router-link to="/tasks">Tasks</router-link>
+        </mt-tab-item>
+        <mt-tab-item id="History">
+          <img src="http://placeholder.qiniudn.com/100x100" slot="icon">
+          <router-link to="/history">History</router-link>
+        </mt-tab-item>
+      </mt-tabbar>
     </div>
-    <router-view/>
   </div>
 </template>
+
+<script>
+import { Tabbar, TabItem } from 'mint-ui';
+
+export default {
+  name: 'app',
+  components: {
+    Tabbar,
+    TabItem
+  },
+  data () {
+    return {
+      selected: 'tasks'
+    }
+  }
+}
+</script>
+
 
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+#tabbar {
+  
+  position: fixed;
+  bottom: 0rem;
+  left: 0rem;
+  background: white;
+  width: 100%;
 }
 </style>

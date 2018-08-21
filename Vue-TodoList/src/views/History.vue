@@ -1,6 +1,6 @@
 <template>
   <div class="history">
-    <h1>This is the history page</h1>
+    <History msg="History"></History>
   </div>
 </template>
 
@@ -15,3 +15,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.history {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+  }
+</style>
