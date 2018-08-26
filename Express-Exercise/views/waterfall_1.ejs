@@ -1,6 +1,16 @@
 <head>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+        #main {
+            display: block;
+            position: relative;
+            width: 100%;
+        }
+        .box {
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -170,15 +180,21 @@
         oParent.style.cssText = 'width:' + oBoxWidth * cols + 'px; margin: 0 auto';
         //定位第二列的位置
         var hArr = [];
+        var wArr = 0;
         for (var i = 0; i < oBox.length; i++) {
             var boxH = oBox[i].offsetHeight;
+            var boxW = oBox[i].offsetWidth;
             if (i < cols) {
+                if(i > 0){
+                    wArr += boxW;
+                }
+                oBox[i].style.top = 0 + 'px';
+                oBox[i].style.left = wArr + 'px';
                 hArr[i] = boxH;
             } else {
                 //通过apply来改变函数的this的方法
                 var minHeight = Math.min.apply(null, hArr);
                 var minIndex = getMinHeightIndex(hArr, minHeight);
-                oBox[i].style.position = 'absolute';
                 oBox[i].style.top = minHeight + 'px';
                 oBox[i].style.left = oBoxWidth * minIndex + 'px';
                 //oBox[i].style.left = oBox[minIndex].offsetLeft+'px';

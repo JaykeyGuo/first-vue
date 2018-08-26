@@ -4,6 +4,16 @@
     </title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #main {
+            display: block;
+            position: relative;
+        }
+        .box {
+            position: absolute;
+        }
+    </style>
 </head>
 
 <body>
@@ -157,18 +167,31 @@ function waterfall(){
     var $boxs = $('#main>div');
     var w = $boxs.eq(0).outerWidth();
     var cols = Math.floor($(window).width() / w);
-    $('#main').width(w*cols).css('margin','0 auto');
+    $('#main').css({
+        'margin':'0 auto',
+        'width' : w * cols + 'px'
+    });
     var hArr = [];
+    var wArr = 0;
     $boxs.each(function(index, value){
         var imageH = $boxs.eq(index).outerHeight();
+        var imageW = $boxs.eq(index).outerWidth();
         if(index < cols){
+            if(index > 0){
+                 wArr += imageW;
+            }
+            $(value).css({
+                'position': 'absolute',
+                'left': wArr + 'px',
+                'top': 0 + 'px',
+            })
             hArr[index] = imageH;
         } else {
             var minH = Math.min.apply(null, hArr);
             var minHIndex = $.inArray(minH, hArr);
             $(value).css({
                 'position': 'absolute',
-                'top': minH + 'px',
+                'top': minH + 15 + 'px',
                 'left': minHIndex * w + 'px',
             })
             hArr[minHIndex] += $boxs.eq(index).outerHeight();
