@@ -54,4 +54,10 @@ router.get('/waterfall_3', function (req, res, next) {
     })
 });
 
+router.get('/css-test', function (req, res, next) {
+    res.render('css-test', {
+        title: 'CSS-TEST'
+    })
+});
+
 module.exports = router;
