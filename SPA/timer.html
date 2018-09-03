@@ -28,19 +28,19 @@
 
     var n = 0;
     timer = null;
-    oStart.onclick = function () {
-        clearInterval(timer);
-        timer = function () {
-            var timeObj = {
-                min: 0,
-                sec: 0,
-                ms: 0
-            }
-            var startTime = new Date();
-            var endTime = new Date();
-            var timeInterval = endTime.getTime() - startTime.getTime();
-            console.log(timeInterval + "毫秒");
-        };
+    oStart.onclick = function startstop() { //启动，停止计时的主程序
+        if (state == 0) { //如果当前处于停止状态
+            state = 1; //则设定当前状态为"正在计时"
+            then = new Date(); //创建"then"这个日期/时间对像
+            then.setTime(then.getTime() - ms); //为这个对象赋值
+        } else { //否则(当前正在计时)
+            state = 0; //设定状态为“停止”
+            now = new Date(); //取当前事件
+            ms = now.getTime() - then.getTime(); //取和开始时间的差值
+            document.stpw.time.value = ms; //显示这个差值
+        }
+    }
+
     };
 
     oEnd.onclick = function () {

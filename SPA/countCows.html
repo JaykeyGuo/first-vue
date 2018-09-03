@@ -13,7 +13,7 @@
         <p>一名农夫，有一头年，第四年开始生小牛，每年生一头，问你第N年有多少只牛？</p>
         <label for="years">第几年？</label>
         <input v-model="years">
-        <button href="javascript:void(0)" v-on:click="countCows">Submit</button>
+        <button v-on:click="countCows">Submit</button>
         <br>
         <span>{{ cows }}</span>
     </div>
