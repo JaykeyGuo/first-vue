@@ -1,17 +1,24 @@
-function countCows (years) {
+function countCowsByFor (years) {
     const cowList = [1];
     for(var i = 1; i <= years; i++){
         for(var j = 0; j < cowList.length; j++){
             if (cowList[j] < 4) {
                 cowList[j]++;
             } else {
-                cowList.push(0);
+                cowList.push(1);
             }
         }
     }
     return cowList.length;
 }
 
+function countCowsByRec(years) {
+    if (years < 4) {
+        return 1
+    } else {
+        return countCows(years - 1) + countCows(years - 3);
+    }
+}
 
 console.log(countCows(1));
 console.log(countCows(2));

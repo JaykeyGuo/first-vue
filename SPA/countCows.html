@@ -1,0 +1,47 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+    <title>Count Cows</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>一名农夫，有一头年，第四年开始生小牛，每年生一头，问你第N年有多少只牛？</p>
+        <label for="years">第几年？</label>
+        <input v-model="years">
+        <button href="javascript:void(0)" v-on:click="countCows">Submit</button>
+        <br>
+        <span>{{ cows }}</span>
+    </div>
+</body>
+
+</html>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            years: '',
+            cows: null
+        },
+        methods: {
+            countCows: function (years) {
+                const cowList = [1];
+                for (var i = 1; i <= this.years; i++) {
+                    for (var j = 0; j < cowList.length; j++) {
+                        if (cowList[j] < 4) {
+                            cowList[j]++;
+                        } else {
+                            cowList.push(0);
+                        }
+                    }
+                }
+                return this.cows = cowList.length + "头牛";
+            }
+        }
+    })
+</script>
