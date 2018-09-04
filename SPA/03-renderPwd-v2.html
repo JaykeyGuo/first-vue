@@ -1,0 +1,72 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta num="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>生成密码</title>
+</head>
+
+<body>
+    Password Num: <input type="text" id="pwdNum" value="7" /> <br>
+    Symbol: <input type="text" id="symbol" value="!@#$%^&" /> <br>
+    <input type="button" onclick="renderPassword()" value="Render Password" />
+    <hr>
+    <table id="table" border="1">
+        <tr>
+            <td>Password Num</td>
+            <td>Symbol</td>
+            <td>Password</td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
+
+<script>
+    function renderPassword() {
+        var pwdNum = document.getElementById("pwdNum").value;
+        var symbol = document.getElementById("symbol").value;
+
+        var table = document.createElement("table");
+        var tr = document.createElement("tr");
+
+        var enter = new Array();
+        enter[0] = document.createTextNode(pwdNum);
+        enter[1] = document.createTextNode(symbol);
+        enter[2] = document.createTextNode(randomPwd(pwdNum))
+        for (var i = 0; i < enter.length; i++) {
+            var td = document.createElement("td");
+            td.appendChild(enter[i]);
+            tr.appendChild(td);
+        }
+        document.getElementById("table").appendChild(tr);
+    }
+
+    function randomPwd(len) {
+        if (len < 6 || len == null) {
+            len = 6;
+        }
+        var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        var num = '012345678';
+        var symbol = document.getElementById("symbol").value;
+        var mixString = uppercase + lowercase + num + symbol;
+        var arrString = [uppercase, lowercase, num, symbol];
+        var pwd = '';
+        for (let i = 0; i < 4; i++) {
+            pwd += arrString[i][Math.floor(arrString[i].length * Math.random())]
+        }
+
+        for (let i = 4; i < len; i++) {
+            pwd += mixString[Math.floor(mixString.length * Math.random())]
+        }
+
+        function randomArr() {
+            return Math.random() > 0.5 ? -1 : 1;
+        }
+        pwd = pwd.split("").sort(randomArr).join("")
+        return pwd;
+    }
+</script>
