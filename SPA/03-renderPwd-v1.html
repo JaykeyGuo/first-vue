@@ -1,0 +1,85 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta num="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>生成密码</title>
+</head>
+
+<body>
+    Password Num: <input type="text" id="pwdNum" value="7" /> <br>
+    Symbol: <input type="text" id="symbol" value="!@#$%^&" /> <br>
+    <input type="button" onclick="renderPassword()" value="Render Password" />
+    <hr>
+    <table id="table" border="1">
+        <tr>
+            <td>Password Num</td>
+            <td>Symbol</td>
+            <td>Password</td>
+        </tr>
+    </table>
+
+</body>
+
+</html>
+
+<script>
+    function renderPassword() {
+        var pwdNum = document.getElementById("pwdNum").value;
+        var symbol = document.getElementById("symbol").value;
+
+        var table = document.createElement("table");
+        var tr = document.createElement("tr");
+
+        var enter = new Array();
+        enter[0] = document.createTextNode(pwdNum);
+        enter[1] = document.createTextNode(symbol);
+        enter[2] = document.createTextNode(randomPwd(pwdNum))
+        for (var i = 0; i < enter.length; i++) {
+            var td = document.createElement("td");
+            td.appendChild(enter[i]);
+            tr.appendChild(td);
+        }
+        document.getElementById("table").appendChild(tr);
+    }
+
+    function randomPwd(len) {
+        if (len < 6 || len == null) {
+            len = 6;
+        }
+        var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        var num = '012345678';
+        var symbol = document.getElementById("symbol").value;
+
+        var item = [1, 2, 3, 4];
+        for (i = 4; i < len; i++) {
+            item[i] = (parseInt(Math.random() * 4 + 1));
+        }
+        //打乱数组
+        function randomsort() {
+            return Math.random() > 0.5 ? -1 : 1
+        }
+        item = item.sort(randomsort);
+
+        var pwd = '';
+        for (let j = 0; j < len; j++) {
+            switch (item[j]) {
+                case 1:
+                    pwd += uppercase[Math.floor(uppercase.length * Math.random())];
+                    break;
+                case 2:
+                    pwd += lowercase[Math.floor(lowercase.length * Math.random())];
+                    break;
+                case 3:
+                    pwd += num[Math.floor(num.length * Math.random())];
+                    break;
+                case 4:
+                    pwd += symbol[Math.floor(symbol.length * Math.random())];
+                    break;
+            }
+        }
+        return pwd;
+    }
+</script>
