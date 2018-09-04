@@ -1,0 +1,110 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Timer</title>
+</head>
+
+<body>
+    <input id="time" value="00:00:00">
+    <input type="button" id="startStop" value='开始'>
+    <input type="button" id="reset" value='重置'>
+    <input type="button" id='delay' value='延迟'>
+</body>
+
+</html>
+
+<script>
+    var oText = document.getElementById('time');
+    var oStartStop = document.getElementById('startStop');
+    var oReset = document.getElementById('reset');
+    var oDelay = document.getElementById('delay');
+
+    var ms = 0,
+        isStart = false,
+        timeInterval = 0;
+    var timeObj = {
+        min: 0,
+        sec: 0,
+        msec: 0,
+    }
+    oStartStop.onclick = function () {
+        startStop();
+        display();
+    };
+
+    oReset.onclick = function () {
+        isStart = false;
+        ms = 0;
+        oText.value = showTime(0);
+        oStartStop.value = "开始";
+    }
+
+    oDelay.onclick = function () {
+        isStart = false;
+        // Count Time differ
+        var startTime = new Date();
+        doSomething();
+        var endTime = new Date();
+        timeInterval = endTime.getTime() - startTime.getTime();
+        var afterTime = timeInterval + ms;
+        console.log(timeInterval)
+        oText.value = showTime(ms + timeInterval);
+        display();
+        isStart = true;
+        endTime.setTime(endTime.getTime());
+    }
+    //新开始的时间 - 去空白时间,计算时间的时候需要注意JS是单线程的，所以需要去拿到“绝对时间”来计算。
+    function startStop() {
+        if (isStart) {
+            isStart = false;
+            now = new Date();
+            ms = now.getTime() - then.getTime();
+            oText.value = showTime(ms);
+            oStartStop.value = "开始";
+        } else {
+            isStart = true;
+            then = new Date();
+            then.setTime(then.getTime() - ms);
+            oStartStop.value = "结束";
+        }
+    }
+
+    function display() {
+        setTimeout('display();', 50);
+        if (isStart) {
+            now = new Date();
+            ms = now.getTime() - then.getTime();
+            oText.value = showTime(ms);
+        }
+    }
+
+    function showTime(ms) {
+        timeObj.msec = Math.floor((ms % 1000));
+        timeObj.sec = Math.floor((ms / 1000) % 60);
+        timeObj.min = Math.floor(ms / 1000 / 60);
+        return toDub(timeObj.min) + ":" + toDub(timeObj.sec) + ":" + toThreeNum(timeObj.msec)
+    }
+
+    function toDub(n) {
+        return n < 10 ? "0" + n : "" + n;
+    }
+
+    function toThreeNum(n) {
+        if (n < 100) {
+            if (n < 10) {
+                return "00" + n
+            }
+            return "0" + n
+        }
+        return n 
+    }
+
+    function doSomething() {
+        for(let i = 0; i < 50000; i++) {
+            console.log("test");
+        }
+    }
+</script>
