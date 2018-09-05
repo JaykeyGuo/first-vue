@@ -1,12 +1,10 @@
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta num="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>生成密码</title>
 </head>
-
 <body>
     Password Num: <input type="text" id="pwdNum" value="7" /> <br>
     Symbol: <input type="text" id="symbol" value="!@#$%^&" /> <br>
@@ -21,7 +19,6 @@
     </table>
 
 </body>
-
 </html>
 
 <script>
@@ -36,56 +33,77 @@
         enter[0] = document.createTextNode(pwdNum);
         enter[1] = document.createTextNode(symbol);
         enter[2] = document.createTextNode(randomPwd(pwdNum))
-        for (var i = 0; i < enter.length; i++) {
+        for(var i = 0; i < enter.length; i++){
             var td = document.createElement("td");
             td.appendChild(enter[i]);
             tr.appendChild(td);
         }
+        
         document.getElementById("table").appendChild(tr);
     }
 
     function randomPwd(len) {
+        var len = len;
         if (len < 6 || len == null) {
             len = 6;
         }
         //混合字符串
         var symbol = document.getElementById("symbol").value;
         var mixString = '';
-        for (let i = 48; i <= 122; i++) {
-            if (i < 58 || (i >= 65 && i < 91) || i >= 97) {
+        for(let i = 48; i <= 122; i++){
+            if (i < 58 || (i >= 65 && i < 91) || i >= 97 ) {
                 mixString += String.fromCharCode(i);
             }
         }
         mixString = mixString + symbol;
+        
         var pwd = renderTestPwd(mixString, len);
-        var countPwd = countItem(pwd);
-        if (checkPwd(countPwd, pwd)) {
-            return pwd;
+        console.log(pwd.testPwd);
+        console.log(pwd.countItem);
+        var json = pwd.countItem;
+        //判断完成之后，返回一个密码，对应的返回值是一定有的。
+        if (checkPwd(json)) {
+            return pwd.testPwd;
         } else {
-            randomPwd(len);
+            return randomPwd(len);
         }
-        return pwd;
     }
 
     //生成密码
-    function renderTestPwd(mixString, len) {
-        var pwd = '';
-        for (let i = 0; i < len; i++) {
-            pwd += mixString[Math.floor(mixString.length * Math.random())]
-        }
-        return pwd
-    }
-    //统计密码
-    function countItem(string) {
+    function renderTestPwd (mixString, len) {
+        var testPwd = '';
         var stringSort = {
             countBigLetter: 0,
-            countSmallLetter: 0,
-            countNumber: 0,
-            countOther: 0
+			countSmallLetter: 0,
+			countNumber: 0,
+			countOther: 0
         };
-
-        for (var i = 0; i < string.length; i++) {
-            var item = string.charAt(i);
+        for(let i = 0; i < len; i++) {
+            item = mixString[Math.floor(mixString.length * Math.random())];
+            testPwd += item;
             if (item >= "a" && item <= "z") {
                 stringSort.countSmallLetter++;
-            } e
+            } else if (item >= "A" && item <= "Z") {
+                stringSort.countBigLetter++;
+            } else if (item >= "0" && item <= "9") {
+                stringSort.countNumber++;
+            } else {
+                stringSort.countOther++;
+            }
+        }
+        return { testPwd: testPwd, countItem: stringSort }
+    }
+    //核对密码 & 生成新密码
+    function checkPwd(json) {
+        var isOk = false;
+        for(key in json) {
+            if (json[key] == 0) {
+                isOk = false;
+                break;
+            } else {
+                isOk = true;
+            }
+        }
+        return isOk;
+    }
+</script> 
