@@ -1,0 +1,165 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>validator with RegExp</title>
+</head>
+<body>
+    User Name: <input type="text" id="userName" value="XiaoMing" /><br>
+    Phone Num: <input type="text" id="phoneNum" value="13984842424" /><br>
+    Email: <input type="text" id="email" value="test@mail.com" /><br>
+    ID: <input type="text" id="sfzID" value="44052019990101778x" /><br>
+    Password: <input type="password" id="password" value="qweASD123!" /><br>
+    Password Again: <input type="password" id="password2" value="qweASD123!" /><br>
+
+    <input type="button" onclick="getUserInfo()" value="Submit" />
+</body>
+</html>
+
+<script>
+    function getUserInfo() {
+        var userInfo = {
+            user: document.getElementById("userName").value,
+            phone: document.getElementById("phoneNum").value,
+            email: document.getElementById("email").value,
+            sfzID: document.getElementById("sfzID").value,
+            password: document.getElementById("password").value,
+            password2: document.getElementById("password2").value
+        }
+        checkUser(userInfo.user);
+        checkPhone(userInfo.phone);
+        checkEmail(userInfo.email);
+        checkID(userInfo.sfzID);
+        checkPwd(userInfo.password);
+        checkPwd2(userInfo.password2, userInfo.password);
+    }
+
+    function checkUser(str) {
+        for(let i = 0; i < str.length; i++) {
+            if ((str[i] >= "a" && str[i] <= "z") || 
+                (str[i] >= "A" && str[i] <= "Z") || 
+                (str[i] >= "0" && str[i] <= "9")) {
+                console.log("user name is right");
+            } else {
+                alert('User name is wrong!');
+                break;
+            }
+        }
+    }
+
+    function checkPhone(str) {
+        if (str.length !== 11) {
+            alert("Phone Num is wrong!")
+        } else {
+            for(let i = 0; i < str.length; i++) {
+                if (str[i] >= "0" && str[i] <= "9"){
+                    console.log("Phone num is right");
+                } else {
+                    alert("Phone Number is wrong!")
+                    break;
+                }
+            }
+        }
+    }
+
+    function checkEmail(str) {
+        var fisrtBlock = str.split("@")[0];
+        var tempBlock = str.split("@")[1];
+        var secondBlock = tempBlock.split(".")[0];
+        var thirdBlock = tempBlock.split(".")[1];
+        
+        checkItem(fisrtBlock);
+        checkItem(secondBlock);
+        checkItem(thirdBlock);
+    }
+
+    function checkID(str) {
+        var len = str.length;
+        if (len !== 15 && len !== 18) {
+            alert("ID Num is Wrong");
+        }
+        var idYear = '', idMonth = '', idDay = '';
+        if (len == 18) {
+            for(let i = 6; i < 14; i++) {
+                if (i < 10) {
+                    idYear += str[i];
+                } else if (i < 12) {
+                    idMonth += str[i];
+                } else {
+                    idDay += str[i];
+                }
+            }
+
+            var now = new Date();
+            var idDate = new Date();
+            idDate.setFullYear(idYear, idMonth - 1, idDay);
+            console.log(idDate)
+            if (idDate > now) {
+                alert("你还未出生！！！");
+            }
+        } 
+        
+        var lastLetter = str[str.length - 1];
+        if ((lastLetter >= "0" && lastLetter <= "9") || lastLetter == 'x' || lastLetter == "X") {
+            for(let i = 0; i < str.length - 1; i++) {
+                if (str[i]>= "0" && str[i] <= "9") {
+                    console.log("ID is right");
+                } else {
+                    alert("ID is wrong!");
+                    break;
+                }
+            }
+        }
+    }
+
+    function checkPwd(str) {  
+        var countSmallLetter = 0;
+        var countBigLetter = 0;
+        var countNumber = 0;
+        var countOther = 0;
+        if (str.length < 6) {
+            alert("Password is shorter than 6 characters");
+        } else {
+            for(let i = 0; i < str.length; i++) {
+                if (str[i] >= "a" && str[i] <= "z") {
+                    countSmallLetter++;
+                } else if (str[i] >= "A" && str[i] <= "Z") {
+                    countBigLetter++;
+                } else if (str[i] >= "0" && str[i] <= "9") {
+                    countNumber++;
+                } else {
+                    countOther++;
+                }
+            }
+            if (countSmallLetter == 0 || countBigLetter == 0 || countNumber ==0 || countOther == 0) {
+                alert("密码必须含有大小写字母、数字和特殊符号");
+            }
+        }
+    }  
+
+    function checkPwd2(pwd2, pwd) {  
+         for (let i = 0; i < pwd.length; i++) {
+             if (pwd2[i] !== pwd[i]) {
+                 alert("两次密码不一致");
+                 break
+             }
+         }
+    }  
+
+    function checkItem (emailBlock) {
+        if (emailBlock == '') {
+            alert("Email Name is wrong");
+        }
+        for(let i = 0; i < emailBlock.length; i++) {
+            if ((emailBlock[i] >= "a" && emailBlock[i] <= "z") || 
+                (emailBlock[i] >= "A" && emailBlock[i] <= "Z") || 
+                (emailBlock[i] >= "0" && emailBlock[i] <= "9")) {
+                console.log("Email Name is right");
+            } else {
+                alert("Email Name is wrong");
+                break;
+            }
+        }
+    }
+</script>
