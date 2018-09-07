@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>画圆</title>
+    <style>
+        #canvas { border: 1px solid #aaaaaa; display: block; margin: 50px auto; }
+    </style>
+</head>
+    <body>
+        <div id="canvas-warp">
+            <canvas id="canvas">
+            </canvas>
+        </div>
+    </body>
+</html>
+
+<script>
+    var canvas = document.getElementById("canvas");
+    canvas.width = 800;
+    canvas.height = 800;
+    var context = canvas.getContext("2d");
+    context.fillStyle='rgb(202, 249, 204)';
+    context.fillRect(0,0,800,800);
+
+    var pointArr = new Array();
+    var pointGroup = new Array();
+    var oX = 0;
+    var oY = 0;
+    var count = 0;
+
+    canvas.onmousedown = function(ev) {
+        var ev = ev || window.event;
+        oX = ev.clientX - canvas.offsetLeft;
+        oY = ev.clientY - canvas.offsetTop;
+        pointArr.push(ev.clientX - canvas.offsetLeft);
+        pointArr.push(ev.clientY - canvas.offsetTop);
+        return pointArr
+    }
+
+    canvas.onmouseup = function(ev) {
+        var ev = ev || window.event;
+        endX = (ev.clientX - canvas.offsetLeft);
+        endY = (ev.clientY - canvas.offsetTop);
+        pointArr.push(getRadius(oX, oY, endX, endY));
+        if (count === 0) {
+            pointGroup[count] = pointArr;
+        } else {
+            pointGroup[count] = pointArr.splice(3);
+        }
+        count++;
+        drawCircle(context, pointGroup); 
+        if (pointGroup.length > 1) {
+            isApart(pointGroup);
+        }
+    }
+
+    function getRadius (x1, y1, x2, y2) {
+        var radius = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+        return radius;
+    }
+
+    function drawCircle (cxt, arr) {
+        for(let i = 0; i < arr.length; i++) {
+            cxt.moveTo(arr[i][0], arr[i][1]);
+            cxt.beginPath();
+            cxt.arc(arr[i][0], arr[i][1], arr[i][2], 0, Math.PI * 2);
+            cxt.closePath();
+            cxt.strokeStyle = "#0078AA";
+            cxt.stroke();
+        }
+    }
+
+    function countDis(arr1, arr2) {
+        distance = Math.sqrt((arr1[0] - arr2[0]) * (arr1[0] - arr2[0]) + (arr1[1] - arr2[1]) * (arr1[1] - arr2[1]));
+        radiusPlus = arr1[2] + arr2[2];
+        if (distance > radiusPlus) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isApart (arr) {
+        var overlap = [];
+        var apart = [];
+        for(let i = 0; i <= arr.length - 2; i++) {
+            if (countDis(arr[i], arr[arr.length - 1])){
+                apart.push(i + 1);
+            } else {
+                overlap.push(i + 1);
+            }
+        }
+        setTimeout( () => {
+            alert("与" + apart.toString() + "相离" + '\n' + "与" + overlap.toString() + "相交");
+        }, 0);
+    }
+</script>
+
+
+
+
+
+
