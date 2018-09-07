@@ -1,0 +1,127 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS Cookie</title>
+</head>
+
+<body>
+    <form name="myform">
+        <div>
+            <label for="cookie_name">
+                Name
+            </label>
+            <input type="text" name="cookie_name" />
+        </div>
+        <div>
+            <label for="cookie_value">
+                Value
+            </label>
+            <input type="text" name="cookie_value" />
+        </div>
+        <div>
+            <label for="cookie_expireHours">
+                Expire Hours
+            </label>
+            <input type="text" name="cookie_expireHours" />
+        </div>
+        <div>
+            <input type="button" value="Add this cookie" onclick="add_cookie()" />
+            <input type="button" value="Read all cookie" onclick="allCookies()" />
+            <input type="button" value="Read this cookie" onclick="get_cookie()" />
+            <input type="button" value="Delete this cookie" onclick="del_cookie()" />
+            <input type="button" value="Edit this cookie" onclick="edit_cookie()">
+        </div>
+    </form>
+</body>
+
+</html>
+
+<script>
+    function addCookie(objName, objValue, objHours) {
+        var str = objName + "=" + escape(objValue);
+        if (objHours > 0) {
+            var date = new Date();
+            var ms = objHours * 3600 * 1000;
+            date.setTime(date.getTime() + ms);
+            str += "; expires=" + date.toUTCString();
+        }
+        document.cookie = str;
+        alert("Add cookie successfully")
+    }
+    //设定cookie的有效期为现在，立马失效
+    function delCookie(name) {
+        var date = new Date();
+        date.setTime(date.getTime() - 10000);
+        document.cookie = name + "=a; expires=" + date.toUTCString();
+    }
+
+    function getCookie(objName) {
+        var arrStr = document.cookie.split(";");
+        for (var i = 0; i < arrStr.length; i++) {
+            var temp = arrStr[i].split('=');
+            if (temp[0] == objName) {
+                return unescape(temp[1]);
+            }
+        }
+    }
+
+    function setCookie(objName, objValue, objHours) {
+        var arrStr = document.cookie.split(";");
+        for (var i = 0; i < arrStr.length; i++) {
+            var temp = arrStr[i].split('=');
+            if (temp[0] == objName) {
+                var str = objName + "=" + escape(objValue);
+                if (objHours > 0) {
+                    var date = new Date();
+                    var ms = objHours * 3600 * 1000;
+                    date.setTime(date.getTime() + ms);
+                    arrStr[i] += "; expires=" + date.toUTCString();
+                }
+            }
+        }
+        document.cookie = str;
+        alert("Edit successfully" + document.cookie)
+    }
+
+    function allCookies() {
+        var str = document.cookie;
+        if (str == "") {
+            str = "No store any cookie";
+        }
+        alert(str);
+    }
+
+    function getFormValue(m, n) {
+        return document.forms[m].elements[n].value;
+    }
+
+    function add_cookie() {
+        var cookie_name = getFormValue('myform', 'cookie_name');
+        var cookie_value = getFormValue('myform', 'cookie_value');
+        var cookie_expireHours = getFormValue('myform', 'cookie_expireHours');
+        addCookie(cookie_name, cookie_value, cookie_expireHours);
+    }
+
+    function get_cookie() {
+        var cookie_name = getFormValue('myform', 'cookie_name');
+        var cookie_value = getCookie(cookie_name);
+        alert(cookie_value);
+    }
+
+    function edit_cookie() {
+        var cookie_name = getFormValue('myform', 'cookie_name');
+        var cookie_value = getFormValue('myform', 'cookie_value');
+        var cookie_expireHours = getFormValue('myform', 'cookie_expireHours');
+        setCookie(cookie_name, cookie_value, cookie_expireHours);
+    }
+
+    function del_cookie() {
+        var cookie_name = getFormValue('myform', 'cookie_name');
+        delCookie(cookie_name);
+        alert("Delete this cookie");
+    }
+
+</script>
