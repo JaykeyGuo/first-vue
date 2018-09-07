@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>画圆</title>
+    <style>
+        #canvas { border: 1px solid #aaaaaa; display: block; margin: 50px auto; }
+    </style>
+</head>
+    <body>
+        <div id="canvas-warp">
+            <canvas id="canvas">
+            </canvas>
+        </div>
+    </body>
+</html>
+
+<script>
+    var canvas = document.getElementById("canvas");
+    canvas.width = 800;
+    canvas.height = 800;
+    var context = canvas.getContext("2d");
+    context.fillStyle='rgb(202, 249, 204)';
+    context.fillRect(0,0,800,800);
+
+    var pointGroup = new Array();
+
+    canvas.onmousedown = function(ev) {
+        var ev = ev || window.event;
+        startX = ev.clientX - canvas.offsetLeft;
+        startY = ev.clientY - canvas.offsetTop;
+    }
+
+    canvas.onmouseup = function(ev) {
+        var ev = ev || window.event;
+        endX = (ev.clientX - canvas.offsetLeft);
+        endY = (ev.clientY - canvas.offsetTop);
+        raidus = getRadius(startX, startY, endX, endY);
+        
+        pointGroup.push({ x: startX, y: startY, r: raidus });
+        drawCircle(context, pointGroup);
+        isApart(pointGroup);
+    }
+
+    canvas.click = function(ev) {
+    }
+
+    function getRadius (x1, y1, x2, y2) {
+        var radius = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+        return radius;
+    }
+
+    function drawCircle (cxt, arr) {
+        for(let i = 0; i < arr.length; i++) {
+            cxt.moveTo(arr[i].x, arr[i].y);
+            cxt.beginPath();
+            cxt.arc(arr[i].x, arr[i].y, arr[i].r, 0, Math.PI * 2);
+            cxt.closePath();
+            cxt.strokeStyle = "#0078AA";
+            cxt.stroke();
+        }
+    }
+
+    function isApart (arr) {
+        var overlap = [];
+        var apart = [];
+        for(let i = 0; i <= arr.length - 2; i++) {
+            if (countDis(arr[i], arr[arr.length - 1])){
+                apart.push(i + 1);
+            } else {
+                overlap.push(i + 1);
+            }
+        }
+        setTimeout( () => {
+            alert("与" + apart.toString() + "相离" + '\n' + "与" + overlap.toString() + "相交");
+        }, 50);
+    }
+
+    function countDis(arr1, arr2) {
+        distance = Math.sqrt((arr1.x - arr2.x) * (arr1.x - arr2.x) + (arr1.y - arr2.y) * (arr1.y - arr2.y));
+        radiusPlus = arr1.r + arr2.r;
+        if (arr1.r > arr2.r) {
+            bigR = arr1.r;
+        } else {
+            bigR = arr2.r;
+        }
+        if (distance > radiusPlus || distance < bigR) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
