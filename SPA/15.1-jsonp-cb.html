@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSONP</title>
+    <script>
+    window.onload = function(){
+        var num = Math.round(10000 * Math.random());
+        var callbackMethodName = "cb_" + num;
+
+        window[callbackMethodName] = function(data) {
+            console.log(data);
+        }
+
+        var sc = document.createElement("script");
+        sc.src = "test_api=" + callbackMethodName;
+        
+        document.body.appendChild(sc);
+    };
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

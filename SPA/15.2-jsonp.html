@@ -1,0 +1,30 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSONP</title>
+    <script>
+        function jsonp() {
+            var num = Math.round(10000 * Math.random());
+            var callbackMethodName = 'callback_' + num;
+
+            window[callbackMethodName] = function (data) {
+                console.log(data);
+            }
+            //console.log(callbackMethodName)
+            var sc = document.createElement("script");
+            sc.src = "http://demo-api.rich85.hk/usercenter/LoginHandler.ashx?action=do_login&callback=" + callbackMethodName;
+            document.body.appendChild(sc); 
+        };
+    </script>
+</head>
+
+<body>
+    <div id="div">
+        <button type="button" onclick="jsonp()">Get State Code</button>
+    </div>
+</body>
+
+</html>
