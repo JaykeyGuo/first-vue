@@ -27,11 +27,13 @@
       </button>
     </router-link>
     <br><br>
-    <input type="text" name="test" @keyup.enter="test" />
+    <input type="text" name="test"
+      placeholder="无限弹窗"
+      @keyup.enter="test()" id="input111"/>
     <mb-ripple
       @click="test"
       class="mb-ripple-test">
-      100
+      无限弹窗
     </mb-ripple>
     <br>
     <router-view></router-view>
@@ -39,14 +41,30 @@
 </template>
 
 <script>
+const print = console.log
+
 export default {
+  directives: {
+    focus: {
+      inserted: function (el) {
+        el.blur()
+      }
+    }
+  },
   name: 'App',
+  data () {
+    return {
+    }
+  },
   methods: {
     test () {
-      console.log(100)
       this.$mbDialogs.show({
-        content: 'hello mb-ui'
+        content: 'hello mb-ui',
+        hideCancel: true,
+        maskClickToHide: true,
+        confirm: '确认'
       })
+      document.getElementById('input111').blur()
     }
   }
 }
