@@ -26,31 +26,18 @@
         MJG
       </button>
     </router-link>
-    <br><br>
-    <input type="text" name="test"
-      placeholder="无限弹窗"
-      @keyup.enter="test()" id="input111"/>
-    <mb-ripple
-      @click="test"
-      class="mb-ripple-test">
-      无限弹窗
-    </mb-ripple>
-    <br>
+    <router-link to="/mb-ui">
+      <button class="link-btn">
+        MBUI
+      </button>
+    </router-link>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-const print = console.log
 
 export default {
-  directives: {
-    focus: {
-      inserted: function (el) {
-        el.blur()
-      }
-    }
-  },
   name: 'App',
   data () {
     return {
@@ -72,19 +59,11 @@ export default {
 
 <style>
 #app {
+  margin-top: 60px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-}
-.mb-ripple-test {
-  width: 100px;
-  height: 50px;
-  border: #2c3e50 1px solid;
-  border-radius: 5px;
-  font-size: 25px;
-  color: red;
 }
 </style>
