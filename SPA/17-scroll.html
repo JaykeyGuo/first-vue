@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Scroll</title>
+  <style>
+    .scroll-box {
+      width: 250px;
+      height: 25px;
+      overflow: hidden;
+      position: relative;
+    }
+    .scroll-container {
+      width: 600px;
+      overflow: hidden;
+      display: inline-block;
+      /* height: 25px; */
+    }
+    .scroll-item-1 {
+      display: inline-block;
+      white-space: nowrap;
+      position: absolute;
+      color: black;
+      left: 0;
+      /* float: left; */
+      width: 300px;
+      padding: 0;
+      margin: 0;
+      /* margin-left: 0px; */
+    }
+    .scroll-item-1 li {
+      display: inline-block;
+      width: 25px;
+    }
+    .scroll-item-2 {
+      display: inline-block;
+      /* float: left; */
+      white-space: nowrap;
+      position: absolute;
+      width: 300px;
+      padding: 0;
+      margin: 0;
+      /* margin-left: 300px; */
+    }
+    .scroll-item-2 li {
+      display: inline-block;
+      width: 25px;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-box" id="scroll-box">
+    <div class="scroll-container" id="scroll-container">
+        <ul class="scroll-item-1" id="scroll-item-1">
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+          <li>9</li>
+          <li>0</li>
+        </ul>
+        <ul class="scroll-item-2" id="scroll-item-2">
+          <li>0</li>
+          <li>9</li>
+          <li>8</li>
+          <li>7</li>
+          <li>6</li>
+          <li>5</li>
+          <li>4</li>
+          <li>3</li>
+          <li>2</li>
+          <li>1</li>
+        </ul>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+const print = console.log
+const speed = 20
+
+var box = document.getElementById('scroll-box')
+var container = document.getElementById('scroll-container')
+var item1 = document.getElementById('scroll-item-1')
+var item2 = document.getElementById('scroll-item-2')
+
+function printParams () {
+  print(
+    'box: ' + box.offsetWidth +
+    " container: " + container.offsetWidth +
+    ' item1: ' + item1.offsetWidth +
+    ' item2: ' + item2.offsetWidth +
+    ' box: ' + box.scrollLeft +
+    " container: " + container.scrollLeft +
+    ' item1: ' + item1.style.marginLeft +
+    ' item2: ' + item2.style.marginLeft
+  )
+}
+item1.style.marginLeft = "0px"
+item2.style.marginLeft = item2.offsetWidth + 'px'
+// print(item1.style.marginLeft)
+function scroll () {
+  let item1Left = parseInt(item1.style.marginLeft.replace('px', ''))
+  let item2Left = parseInt(item2.style.marginLeft.replace('px', ''))
+
+  if (item1Left < -item1.offsetWidth) {
+    item1.style.marginLeft = item1.offsetWidth + 'px'
+  } else if (item2Left < -item2.offsetWidth) {
+    item2.style.marginLeft = item2.offsetWidth + 'px'
+  } else {
+    item1.style.marginLeft = item1Left - 1 + 'px'
+    item2.style.marginLeft = item2Left - 1 + 'px'
+  }
+  printParams()
+}
+
+let startScroll = setInterval(scroll, speed)
+container.onmouseout = function () {
+  startScroll = setInterval(() => {
+    scroll
+  }, speed);
+}
+</script>
