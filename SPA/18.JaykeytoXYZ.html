@@ -1,0 +1,159 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- Reset CSS -->
+  <style>
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+    body {
+      line-height: 1;
+    }
+    ol, ul {
+      list-style: none;
+    }
+    blockquote, q {
+      quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+      content: '';
+      content: none;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+  </style>
+  <style>
+    .wrap {
+      width: 100vw;
+      height: 100vh;
+      background: #1c364e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .top-box {
+      width: 30vw;
+      padding: 30px;
+    }
+    .top-box h1 {
+      display: block;
+      padding: 14px 18px;
+      font-size: 50px;
+      font-weight: 500;
+      line-height: 70px;
+      height: 70px;
+      overflow: hidden;
+      color: #080f16;
+      text-shadow: rgba(255,255,255,.10) 0 1px 0;
+      letter-spacing: 17px;
+      border: #080f16 5px solid;
+      box-shadow: rgba(255,255,255,.10) 0 1px 0;
+    }
+    .bottom-box {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 30vw;
+    }
+    .bottom-left-box {
+      text-align: center;
+    }
+    .bottom-left-box p {
+      display: block;
+      color: #968874;
+      font-family: "arno-pro",palatino,serif;
+      font-size: 12pt;
+    }
+    .bottom-left-box a {
+      display: block;
+      text-decoration: none;
+      color: #F6E3C9;
+      font-family: "arno-pro",palatino,serif;
+      font-size: 12pt;
+      border-bottom: 1px solid #968874;
+    }
+    .bottom-left-box span {
+      display: block;
+      line-height: 26px;
+      height: 26px;
+    }
+    .more-info {
+      display: block;
+      color: #968874;
+      margin-top: 6px;
+    }
+    .more-info a {
+      display: inline;
+      color: #f6e3c9;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(236,193,135,.30);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="container">
+      <div class="top-box">
+        <h1>BENCHMARK</h1>
+      </div>
+      <div class="bottom-box">
+        <div class="bottom-left-box">
+          <p>
+            <a href="https://www.google.com/maps/place/988+Market+St,+San+Francisco,+CA+94102/@37.7827367,-122.412495,17z/data=!3m1!4b1!4m2!3m1!1s0x808580850f371135:0x1bd5571add316bf9">
+              <span class="street-address">988 Market Street</span>
+              <span class="region">San Francisco, California 94102</span>
+            </a>
+          </p>
+          <p>
+            <span class="more-info">More Info: <a href="https://twitter.com/benchmark/lists/current-venture-portfolio/members">@benchmark »</a></span>
+          </p>
+        </div>
+        <div class="bottom-left-box">
+          <p>
+            <a href="https://www.google.com/maps/place/2965+Woodside+Rd,+Woodside,+CA+94062/@37.4289736,-122.2533792,17z/data=!3m1!4b1!4m2!3m1!1s0x808fa41101f396e9:0xe451797e0a031998">
+              <span class="street-address">2965 Woodside Road</span>
+              <span class="region">Woodside, California 94062</span>
+            </a>
+          </p>
+          <p>
+            <span class="more-info">© 2019. All rights reserved.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
