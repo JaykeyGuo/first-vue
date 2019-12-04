@@ -16,14 +16,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
-    path: '/library',
-    name: 'library',
-    component: () => import(/* webpackChunkName: "library" */ '../views/Library.vue'),
+    path: '/form',
+    name: 'form',
+    component: () => import(/* webpackChunkName: "form" */ '../views/Form.vue'),
   },
   {
     path: '/otp',
     name: 'otp',
-    component: () => import(/* webpackChunkName: "library" */ '../views/OTP.vue'),
+    component: () => import(/* webpackChunkName: "otp" */ '../views/OTP.vue'),
+  },
+  {
+    path: '/css-secrets',
+    name: 'cssSecrets',
+    component: () => import(/* webpackChunkName: "otp" */ '../views/CssSecrets.vue'),
   },
 ];
 

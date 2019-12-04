@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/form">Form</router-link> |
-      <router-link to="/otp">OTP</router-link>
+      <router-link to="/otp">OTP</router-link> |
+      <router-link to="/css-secrets">Css Secrets</router-link>
     </div>
     <router-view/>
   </div>
@@ -12,6 +13,7 @@
 
 <style lang="scss">
 @import '@/styles/public/reset.scss';
+@import '@/styles/public/public.scss';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
